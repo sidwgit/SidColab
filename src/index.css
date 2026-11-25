@@ -1,0 +1,408 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-grid: #8f8f8f;
+  --paper-bg: #fdfdfb;
+  --paper-line: #ecebe4;
+  --ink: #18181b;
+  --ink-muted: #52525b;
+  --accent-yellow: #f5c52b;
+  --accent-blue: #2563eb;
+  --accent-pink: #ec4899;
+  --accent-green: #10b981;
+  --accent-coral: #ea6a47;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 66px;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-grid);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-pixel {
+  font-family: 'Pixelify Sans', monospace;
+}
+
+.font-hand {
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+}
+
+.font-caveat {
+  font-family: 'Caveat', cursive;
+}
+
+.font-mono-ui {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.font-sans-ui {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Outer Grid & Centered Paper Sheet */
+.page-canvas {
+  min-height: 100vh;
+  padding: 24px 28px;
+}
+
+.paper-sheet {
+  max-width: 1080px;
+  margin: 0 auto;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(24, 24, 27, 0.08);
+  overflow-x: clip;
+}
+
+/* Lined notebook paper surface */
+.notebook-paper {
+  background-color: var(--paper-bg);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 31px,
+    var(--paper-line) 31px,
+    var(--paper-line) 32px
+  );
+  background-position: 0 18px;
+}
+
+/* Navigation responsive */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobile-menu-btn {
+  display: none;
+}
+
+/* CTA hover */
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(24, 24, 27, 0.22);
+}
+
+/* Masking tape strip */
+.masking-tape {
+  position: absolute;
+  width: 56px;
+  height: 18px;
+  background: rgba(232, 229, 214, 0.8);
+  border-left: 1px dashed rgba(170, 165, 145, 0.48);
+  border-right: 1px dashed rgba(170, 165, 145, 0.48);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(1px);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.masking-tape-dark {
+  background: rgba(226, 224, 212, 0.72);
+}
+
+/* About section 3-column layout */
+.about-grid {
+  max-width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 170px 1fr 170px;
+  align-items: center;
+  gap: 24px;
+}
+
+.polaroid-left-wrap,
+.polaroid-right-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.polaroid-card {
+  position: relative;
+  width: 158px;
+  background-color: #ffffff;
+  padding: 10px 10px 12px;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.11);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.polaroid-card:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+}
+
+.polaroid-photo {
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  overflow: hidden;
+  background-color: #f4f4f5;
+}
+
+.polaroid-caption {
+  text-align: center;
+  font-size: 12px;
+  color: #52525b;
+  margin-top: 7px;
+  line-height: 1;
+}
+
+/* Perforated / scalloped postage stamp ticket edges */
+.stamp-ticket {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 24px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease;
+  -webkit-mask-image:
+    radial-gradient(circle at 0 5.5px, transparent 3.2px, #000 3.6px),
+    radial-gradient(circle at 100% 5.5px, transparent 3.2px, #000 3.6px);
+  -webkit-mask-size: 100% 11px, 100% 11px;
+  -webkit-mask-position: left top, right top;
+  -webkit-mask-repeat: repeat-y, repeat-y;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(circle at 0 5.5px, transparent 3.2px, #000 3.6px),
+    radial-gradient(circle at 100% 5.5px, transparent 3.2px, #000 3.6px);
+  mask-size: 100% 11px, 100% 11px;
+  mask-position: left top, right top;
+  mask-repeat: repeat-y, repeat-y;
+  mask-composite: intersect;
+}
+
+.stamp-square {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease;
+  -webkit-mask-image:
+    radial-gradient(circle at 0 5.5px, transparent 3px, #000 3.4px),
+    radial-gradient(circle at 100% 5.5px, transparent 3px, #000 3.4px);
+  -webkit-mask-size: 100% 11px, 100% 11px;
+  -webkit-mask-position: left top, right top;
+  -webkit-mask-repeat: repeat-y, repeat-y;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(circle at 0 5.5px, transparent 3px, #000 3.4px),
+    radial-gradient(circle at 100% 5.5px, transparent 3px, #000 3.4px);
+  mask-size: 100% 11px, 100% 11px;
+  mask-position: left top, right top;
+  mask-repeat: repeat-y, repeat-y;
+  mask-composite: intersect;
+}
+
+.stamp-group:hover .stamp-ticket {
+  transform: translateY(-2px) rotate(-0.8deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.stamp-group:hover .stamp-square {
+  transform: translateY(-2px) rotate(2.5deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Folder tab chamfered polygon */
+.folder-tab-left {
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+}
+
+.folder-tab-both {
+  clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+}
+
+/* Folder Card Content Grid */
+.folder-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.taped-preview-wrap {
+  position: relative;
+  cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.taped-preview-wrap:hover {
+  transform: translateY(-3px) rotate(0.4deg);
+}
+
+.taped-preview-frame {
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.view-project-btn:hover {
+  opacity: 0.78;
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.service-index-card {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease;
+}
+
+.service-index-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #18181b !important;
+}
+
+/* Airmail Postcard Border */
+.airmail-frame {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ef4444 0px,
+    #ef4444 12px,
+    #ffffff 12px,
+    #ffffff 22px,
+    #2563eb 22px,
+    #2563eb 34px,
+    #ffffff 34px,
+    #ffffff 44px
+  );
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Poster Masonry Gallery (Freelance Page) */
+.poster-masonry {
+  column-count: 3;
+  column-gap: 20px;
+  padding-top: 14px;
+}
+
+.poster-masonry-card {
+  display: block;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin: 0 0 22px 0;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease;
+}
+
+.poster-masonry-card:hover {
+  transform: translate(-2px, -3px);
+  box-shadow: 6px 7px 0 #18181b !important;
+}
+
+/* Playground Grid */
+.playground-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Hand-drawn subtle animation */
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.float-sticker {
+  animation: floatSlow 5.5s ease-in-out infinite;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .page-canvas {
+    padding: 12px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .polaroid-left-wrap,
+  .polaroid-right-wrap {
+    order: 2;
+  }
+
+  .services-grid,
+  .folder-card-grid,
+  .playground-grid,
+  .contact-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .poster-masonry {
+    column-count: 2;
+  }
+
+  .folder-card-grid {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 580px) {
+  .poster-masonry {
+    column-count: 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .desktop-nav,
+  .desktop-socials {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-sticker-left,
+  .hero-sticker-right,
+  .hero-arrow {
+    display: none !important;
+  }
+
+  .hero-annotations-row {
+    flex-wrap: wrap;
+    justify-content: center !important;
+  }
+}
