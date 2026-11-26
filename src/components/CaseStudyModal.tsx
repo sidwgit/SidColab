@@ -136,7 +136,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
 
         {/* Body */}
         <div style={{ padding: '26px 28px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {/* Direct YouTube CTA Banner if available */}
+          {/* Direct Channel CTA Banner if available */}
           {project.liveUrl && (
             <a
               href={project.liveUrl}
@@ -152,7 +152,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
                 padding: '16px 20px',
                 border: '1.5px solid #18181b',
                 textDecoration: 'none',
-                boxShadow: '4px 4px 0 #ef4444',
+                boxShadow: `4px 4px 0 ${project.mockupType === 'twitch' ? '#772CE8' : '#ef4444'}`,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -160,18 +160,26 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
                   style={{
                     width: '36px',
                     height: '36px',
-                    borderRadius: '50%',
-                    backgroundColor: '#ef4444',
+                    borderRadius: project.mockupType === 'twitch' ? '8px' : '50%',
+                    backgroundColor: project.mockupType === 'twitch' ? '#772CE8' : '#ef4444',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
                   }}
                 >
-                  <Youtube size={18} color="#ffffff" />
+                  {project.mockupType === 'twitch' ? (
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true">
+                      <path d="M4.265 3 3 6.236v13.223h4.502V21l2.531.001 2.39-1.542h3.658L21 14.539V3H4.265Zm15.05 10.691-2.813 2.814h-4.501l-2.391 1.542v-1.542H5.813V4.688h13.502v9.003Zm-3.657-5.908v4.782h-1.688V7.783h1.688Zm-4.5 0v4.782H9.47V7.783h1.688Z" />
+                    </svg>
+                  ) : (
+                    <Youtube size={18} color="#ffffff" />
+                  )}
                 </div>
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: 800 }}>Watch Sid&apos;s YouTube Videos</div>
+                  <div style={{ fontSize: '15px', fontWeight: 800 }}>
+                    {project.mockupType === 'twitch' ? "Watch Sid Live on Twitch" : "Watch Sid's YouTube Videos"}
+                  </div>
                   <div className="font-mono-ui" style={{ fontSize: '10px', color: '#a1a1aa' }}>
                     {project.liveUrl}
                   </div>

@@ -3,7 +3,7 @@ export interface FreelancePosterItem {
   index: number;
   title: string;
   filename: string;
-  category: 'Posters' | 'Visiting Cards';
+  category: 'Posters' | 'Thumbnails' | 'Visiting Cards';
   thumbUrl: string;
   fullUrl: string;
   width: number;
@@ -320,8 +320,74 @@ export const freelanceGalleryItems: FreelancePosterItem[] = [
     "height": 5000
   },
   {
-    "id": "visitingcards__reds__back-yellow-text",
+    "id": "thumbnails__messyroom",
     "index": 29,
+    "title": "Messy Room",
+    "filename": "MessyRoom.png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__messyroom.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__messyroom.webp",
+    "width": 1036,
+    "height": 584
+  },
+  {
+    "id": "thumbnails__oppenheimer-textured",
+    "index": 30,
+    "title": "Oppenheimer (textured)",
+    "filename": "Oppenheimer(textured).png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__oppenheimer-textured.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__oppenheimer-textured.webp",
+    "width": 1671,
+    "height": 940
+  },
+  {
+    "id": "thumbnails__pdchp2-cover",
+    "index": 31,
+    "title": "Pdchp2 Cover",
+    "filename": "Pdchp2-cover.png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__pdchp2-cover.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__pdchp2-cover.webp",
+    "width": 808,
+    "height": 632
+  },
+  {
+    "id": "thumbnails__signature",
+    "index": 32,
+    "title": "Signature",
+    "filename": "signature.png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__signature.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__signature.webp",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "id": "thumbnails__starbtot",
+    "index": 33,
+    "title": "Starbtot",
+    "filename": "starbtot.png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__starbtot.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__starbtot.webp",
+    "width": 5000,
+    "height": 6000
+  },
+  {
+    "id": "thumbnails__youtube-banner-jun25-1",
+    "index": 34,
+    "title": "Youtube Banner Jun25 (1)",
+    "filename": "Youtube-Banner-Jun25(1).png",
+    "category": "Thumbnails",
+    "thumbUrl": "/freelance-gallery/thumbs/thumbnails__youtube-banner-jun25-1.webp",
+    "fullUrl": "/freelance-gallery/full/thumbnails__youtube-banner-jun25-1.webp",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "id": "visitingcards__reds__back-yellow-text",
+    "index": 35,
     "title": "Visiting Card \u2014 Back (yellow)text",
     "filename": "back(yellow)text.png",
     "category": "Visiting Cards",
@@ -332,7 +398,7 @@ export const freelanceGalleryItems: FreelancePosterItem[] = [
   },
   {
     "id": "visitingcards__reds__front-text",
-    "index": 30,
+    "index": 36,
     "title": "Visiting Card \u2014 Front (text)",
     "filename": "front(text).png",
     "category": "Visiting Cards",
@@ -343,7 +409,7 @@ export const freelanceGalleryItems: FreelancePosterItem[] = [
   },
   {
     "id": "visitingcards__reds__frontdots",
-    "index": 31,
+    "index": 37,
     "title": "Visiting Card \u2014 Frontdots",
     "filename": "frontdots.png",
     "category": "Visiting Cards",

@@ -2,25 +2,36 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { ArrowLeft, Search, X, ChevronLeft, ChevronRight, ArrowUpRight, Layers } from 'lucide-react';
 import { FreelancePosterItem } from '../data/freelanceGallery';
 
+export type CategoryFilter = 'All' | 'Posters' | 'Thumbnails' | 'Visiting Cards';
+
 interface FreelancePageProps {
   items: FreelancePosterItem[];
+  initialFilter?: CategoryFilter;
   onBack: () => void;
   onRequestDesign: () => void;
 }
 
-type CategoryFilter = 'All' | 'Posters' | 'Visiting Cards';
-
 export const FreelancePage: React.FC<FreelancePageProps> = ({
   items,
+  initialFilter = 'All',
   onBack,
   onRequestDesign,
 }) => {
-  const [filter, setFilter] = useState<CategoryFilter>('All');
+  const [filter, setFilter] = useState<CategoryFilter>(initialFilter);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  useEffect(() => {
+    setFilter(initialFilter);
+    setActiveIndex(null);
+  }, [initialFilter]);
+
   const posterCount = useMemo(
     () => items.filter((item) => item.category === 'Posters').length,
+    [items]
+  );
+  const thumbnailCount = useMemo(
+    () => items.filter((item) => item.category === 'Thumbnails').length,
     [items]
   );
   const cardCount = useMemo(
@@ -66,6 +77,7 @@ export const FreelancePage: React.FC<FreelancePageProps> = ({
   const filterTabs: { id: CategoryFilter; label: string; count: number; color: string; textColor: string }[] = [
     { id: 'All', label: 'ALL WORK', count: items.length, color: '#f5c52b', textColor: '#18181b' },
     { id: 'Posters', label: 'POSTERS & KEY VISUALS', count: posterCount, color: '#2563eb', textColor: '#ffffff' },
+    { id: 'Thumbnails', label: 'THUMBNAILS', count: thumbnailCount, color: '#10b981', textColor: '#ffffff' },
     { id: 'Visiting Cards', label: 'VISITING CARDS', count: cardCount, color: '#ec4899', textColor: '#ffffff' },
   ];
 
@@ -429,13 +441,22 @@ export const FreelancePage: React.FC<FreelancePageProps> = ({
                       fontSize: '8.5px',
                       fontWeight: 700,
                       padding: '3px 6px',
-                      backgroundColor: item.category === 'Visiting Cards' ? '#fbcfe8' : '#fef08a',
+                      backgroundColor:
+                        item.category === 'Visiting Cards'
+                          ? '#fbcfe8'
+                          : item.category === 'Thumbnails'
+                            ? '#a7f3d0'
+                            : '#fef08a',
                       border: '1px solid #18181b',
                       color: '#18181b',
                       flexShrink: 0,
                     }}
                   >
-                    {item.category === 'Visiting Cards' ? 'CARD' : 'POSTER'}
+                    {item.category === 'Visiting Cards'
+                      ? 'CARD'
+                      : item.category === 'Thumbnails'
+                        ? 'THUMBNAIL'
+                        : 'POSTER'}
                   </span>
                 </div>
               </button>

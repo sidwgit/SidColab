@@ -13,6 +13,24 @@ OUT_THUMBS.mkdir(parents=True, exist_ok=True)
 OUT_FULL.mkdir(parents=True, exist_ok=True)
 
 
+def detect_category(rel_path: Path) -> str:
+    parts_lower = {part.lower() for part in rel_path.parts[:-1]}
+    if "visitingcards" in parts_lower:
+        return "Visiting Cards"
+    if "thumbnails" in parts_lower:
+        return "Thumbnails"
+    return "Posters"
+
+
+def category_rank(rel_path: Path) -> int:
+    cat = detect_category(rel_path)
+    if cat == "Posters":
+        return 0
+    if cat == "Thumbnails":
+        return 1
+    return 2
+
+
 def clean_title(rel_path: Path) -> str:
     stem = rel_path.stem
     text = stem.replace("_", " ").replace("-", " ")
@@ -28,7 +46,7 @@ def clean_title(rel_path: Path) -> str:
         else:
             words.append(w.capitalize() if w.isalpha() else w)
     title = " ".join(words)
-    if "VisitingCards" in rel_path.parts:
+    if detect_category(rel_path) == "Visiting Cards":
         return f"Visiting Card — {title}"
     return title
 
@@ -49,7 +67,7 @@ def main() -> None:
             for p in SRC_DIR.rglob("*")
             if p.is_file() and p.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}
         ],
-        key=lambda p: (1 if "VisitingCards" in p.parts else 0, p.name.lower()),
+        key=lambda p: (category_rank(p.relative_to(SRC_DIR)), p.name.lower()),
     )
 
     expected_webp_names = set()
@@ -87,15 +105,15 @@ def main() -> None:
                 thumb_im = im.copy()
                 thumb_im.thumbnail((760, 760), Image.Resampling.LANCZOS)
                 thumb_im.save(thumb_path, "WEBP", quality=82, method=4)
+                print(f"[{idx}/{len(all_files)}] Encoded {rel} -> {orig_w}x{orig_h}")
 
-        category = "Visiting Cards" if "VisitingCards" in rel.parts else "Posters"
         items.append(
             {
                 "id": slug,
                 "index": idx,
                 "title": clean_title(rel),
                 "filename": src_path.name,
-                "category": category,
+                "category": detect_category(rel),
                 "thumbUrl": f"/freelance-gallery/thumbs/{webp_name}",
                 "fullUrl": f"/freelance-gallery/full/{webp_name}",
                 "width": orig_w,
@@ -114,7 +132,7 @@ def main() -> None:
         "  index: number;\n"
         "  title: string;\n"
         "  filename: string;\n"
-        "  category: 'Posters' | 'Visiting Cards';\n"
+        "  category: 'Posters' | 'Thumbnails' | 'Visiting Cards';\n"
         "  thumbUrl: string;\n"
         "  fullUrl: string;\n"
         "  width: number;\n"
@@ -125,6 +143,7 @@ def main() -> None:
 
     if not MANIFEST_TS.exists() or MANIFEST_TS.read_text(encoding="utf-8") != ts_content:
         MANIFEST_TS.write_text(ts_content, encoding="utf-8")
+    print(f"Synced {len(items)} items.")
 
 
 if __name__ == "__main__":

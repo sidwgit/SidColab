@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Copy, Check, Mail, AlertCircle } from 'lucide-react';
 import { sendInquiryEmail, buildMailtoUrl } from '../utils/sendInquiry';
+import { ContactSocial } from '../data/portfolioData';
+import { SocialLinksGrid } from './SocialLinksGrid';
 
 interface ContactSectionProps {
   email: string;
   availabilityLabel: string;
+  socials: ContactSocial[];
   selectedService?: string;
 }
 
@@ -18,6 +21,7 @@ const projectTypes = [
 export const ContactSection: React.FC<ContactSectionProps> = ({
   email,
   availabilityLabel,
+  socials,
   selectedService,
 }) => {
   const [name, setName] = useState('');
@@ -214,6 +218,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   </span>
                 </div>
               </div>
+            </div>
+
+            {/* Social Handles Strip */}
+            <div style={{ marginBottom: '20px' }}>
+              <SocialLinksGrid socials={socials} />
             </div>
 
             {sent ? (

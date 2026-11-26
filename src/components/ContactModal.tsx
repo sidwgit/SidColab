@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { X, Copy, Check, Send, AlertCircle, Mail } from 'lucide-react';
 import { sendInquiryEmail, buildMailtoUrl } from '../utils/sendInquiry';
+import { ContactSocial } from '../data/portfolioData';
+import { SocialLinksGrid } from './SocialLinksGrid';
 
 interface ContactModalProps {
   isOpen: boolean;
   email: string;
   availabilityLabel: string;
+  socials: ContactSocial[];
   initialService?: string;
   onClose: () => void;
 }
@@ -21,6 +24,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
   isOpen,
   email,
   availabilityLabel,
+  socials,
   initialService,
   onClose,
 }) => {
@@ -195,6 +199,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({
             {copied ? <Check size={11} /> : <Copy size={11} />}
             <span>{copied ? 'COPIED' : 'COPY'}</span>
           </button>
+        </div>
+
+        {/* Social Handles Strip */}
+        <div style={{ marginBottom: '16px' }}>
+          <SocialLinksGrid socials={socials} compact />
         </div>
 
         {submitted ? (

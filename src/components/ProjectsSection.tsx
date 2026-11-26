@@ -2,16 +2,20 @@ import React from 'react';
 import { ArrowUpRight, Play, Youtube, FolderOpen } from 'lucide-react';
 import { ProjectItem } from '../data/portfolioData';
 
+import { CategoryFilter } from './FreelancePage';
+
 interface ProjectsSectionProps {
   projects: ProjectItem[];
   freelanceCount: number;
+  thumbnailCount: number;
   onSelectProject: (project: ProjectItem) => void;
-  onOpenFreelanceFolder: () => void;
+  onOpenFreelanceFolder: (initialFilter?: CategoryFilter) => void;
 }
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   projects,
   freelanceCount,
+  thumbnailCount,
   onSelectProject,
   onOpenFreelanceFolder,
 }) => {
@@ -129,6 +133,128 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       );
     }
 
+    if (project.mockupType === 'twitch') {
+      return (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '245px',
+            backgroundColor: '#120f1a',
+            backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(145, 70, 255, 0.32), transparent 58%)',
+            padding: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            color: '#ffffff',
+          }}
+        >
+          {/* Channel Bar */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '6px',
+                  backgroundColor: '#9146FF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true">
+                  <path d="M4.265 3 3 6.236v13.223h4.502V21l2.531.001 2.39-1.542h3.658L21 14.539V3H4.265Zm15.05 10.691-2.813 2.814h-4.501l-2.391 1.542v-1.542H5.813V4.688h13.502v9.003Zm-3.657-5.908v4.782h-1.688V7.783h1.688Zm-4.5 0v4.782H9.47V7.783h1.688Z" />
+                </svg>
+              </div>
+              <div>
+                <div style={{ fontSize: '11.5px', fontWeight: 700, lineHeight: 1.1 }}>sidisfire</div>
+                <div className="font-mono-ui" style={{ fontSize: '8.5px', color: '#c4b5fd' }}>
+                  TWITCH CHANNEL
+                </div>
+              </div>
+            </div>
+            <span
+              className="font-mono-ui"
+              style={{
+                backgroundColor: '#9146FF',
+                color: '#ffffff',
+                fontSize: '8.5px',
+                fontWeight: 700,
+                padding: '4px 8px',
+                borderRadius: '2px',
+              }}
+            >
+              LIVE &amp; VODS
+            </span>
+          </div>
+
+          {/* Center Stream Card Mockup */}
+          <div
+            style={{
+              backgroundColor: '#1b1626',
+              border: '1px solid #3b2d59',
+              borderRadius: '8px',
+              padding: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '12px',
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <div className="font-mono-ui" style={{ fontSize: '8.5px', color: '#facc15', marginBottom: '4px' }}>
+                CREATIVE &amp; GAMING STREAMS
+              </div>
+              <div style={{ fontSize: '14px', fontWeight: 800, lineHeight: 1.25 }}>
+                Gaming, Live Design Sessions &amp; Chill Hangouts
+              </div>
+              <div style={{ fontSize: '10.5px', color: '#c4b5fd', marginTop: '4px' }}>
+                twitch.tv/sidisfire
+              </div>
+            </div>
+            <div
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                backgroundColor: '#9146FF',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(145, 70, 255, 0.4)',
+              }}
+            >
+              <Play size={18} fill="#ffffff" />
+            </div>
+          </div>
+
+          {/* Stream Category Tags */}
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {['GAMING', 'GRAPHIC DESIGN', 'EDIT BREAKDOWNS'].map((tag) => (
+              <span
+                key={tag}
+                className="font-mono-ui"
+                style={{
+                  fontSize: '8px',
+                  fontWeight: 700,
+                  padding: '4px 8px',
+                  backgroundColor: '#241d33',
+                  border: '1px solid #4c3b6e',
+                  color: '#ede9fe',
+                  borderRadius: '2px',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     // Project 2: Freelance Folder Graphic Design & Posters Collage
     const posters = project.posters || [];
     return (
@@ -238,6 +364,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   const p1 = projects[0];
   const p2 = projects[1];
+  const p3 = projects[2];
 
   return (
     <section
@@ -371,7 +498,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <div style={{ display: 'flex', justifyContent: 'center', paddingRight: '40px' }}>
               <button
                 type="button"
-                onClick={onOpenFreelanceFolder}
+                onClick={() => onOpenFreelanceFolder('All')}
                 className="folder-tab-both font-mono-ui"
                 style={{
                   backgroundColor: p2.tabColor,
@@ -396,7 +523,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               style={{
                 backgroundColor: p2.cardBg,
                 color: p2.cardTextColor,
-                padding: '36px 34px 42px',
+                padding: '36px 34px 58px',
                 boxShadow: '0 -4px 14px rgba(0,0,0,0.12)',
               }}
             >
@@ -414,10 +541,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     </p>
                   </div>
 
-                  <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                     <button
                       type="button"
-                      onClick={onOpenFreelanceFolder}
+                      onClick={() => onOpenFreelanceFolder('All')}
                       className="font-mono-ui view-project-btn"
                       style={{
                         background: 'none',
@@ -437,19 +564,156 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       <span>OPEN FREELANCE FOLDER ({freelanceCount})</span>
                       <ArrowUpRight size={13} />
                     </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onOpenFreelanceFolder('Thumbnails')}
+                      className="font-mono-ui view-project-btn"
+                      style={{
+                        backgroundColor: '#18181b',
+                        border: 'none',
+                        color: '#a7f3d0',
+                        padding: '5px 10px',
+                        fontSize: '9.5px',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <span>THUMBNAILS ({thumbnailCount})</span>
+                      <ArrowUpRight size={12} />
+                    </button>
                   </div>
                 </div>
 
                 <div
                   className="taped-preview-wrap"
-                  onClick={onOpenFreelanceFolder}
-                  onKeyDown={(e) => e.key === 'Enter' && onOpenFreelanceFolder()}
+                  onClick={() => onOpenFreelanceFolder('All')}
+                  onKeyDown={(e) => e.key === 'Enter' && onOpenFreelanceFolder('All')}
                   role="button"
                   tabIndex={0}
                 >
                   <span className="masking-tape" style={{ top: '-8px', left: '-12px', transform: 'rotate(-36deg)' }} />
                   <span className="masking-tape" style={{ top: '-8px', right: '-12px', transform: 'rotate(36deg)' }} />
                   <div className="taped-preview-frame">{renderProjectMockup(p2)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Project 03 Twitch Purple Folder — Live Streams */}
+        {p3 && (
+          <div style={{ position: 'relative', zIndex: 4, marginTop: '-28px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '56px' }}>
+              <button
+                type="button"
+                onClick={() => onSelectProject(p3)}
+                className="folder-tab-both font-mono-ui"
+                style={{
+                  backgroundColor: p3.tabColor,
+                  color: p3.tabTextColor,
+                  border: 'none',
+                  padding: '10px 38px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '7px',
+                }}
+              >
+                <span style={{ fontSize: '8px' }}>◆</span>
+                <span>{p3.tabLabel}</span>
+              </button>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: p3.cardBg,
+                color: p3.cardTextColor,
+                padding: '36px 34px 44px',
+                boxShadow: '0 -4px 14px rgba(0,0,0,0.16)',
+              }}
+            >
+              <div className="folder-card-grid">
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '20px' }}>
+                  <div>
+                    <div className="font-mono-ui" style={{ fontSize: '10px', letterSpacing: '0.12em', color: p3.mutedTextColor, marginBottom: '14px' }}>
+                      ◆ {p3.date}
+                    </div>
+                    <h3 className="font-sans-ui" style={{ margin: '0 0 10px', fontSize: '36px', fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.1 }}>
+                      {p3.title}
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.55, color: p3.mutedTextColor, maxWidth: '320px' }}>
+                      {p3.tagline}
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
+                    {p3.liveUrl && (
+                      <a
+                        href={p3.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-mono-ui view-project-btn"
+                        style={{
+                          borderBottom: '1.5px solid #fef08a',
+                          color: '#fef08a',
+                          padding: '0 0 4px',
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          letterSpacing: '0.12em',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <span>{p3.liveCtaLabel || 'WATCH ON TWITCH'}</span>
+                        <ArrowUpRight size={13} />
+                      </a>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => onSelectProject(p3)}
+                      className="font-mono-ui view-project-btn"
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: `1.5px solid ${p3.cardTextColor}`,
+                        color: p3.cardTextColor,
+                        padding: '0 0 4px',
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        letterSpacing: '0.12em',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <span>PROJECT DETAILS</span>
+                      <ArrowUpRight size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  className="taped-preview-wrap"
+                  onClick={() => onSelectProject(p3)}
+                  onKeyDown={(e) => e.key === 'Enter' && onSelectProject(p3)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <span className="masking-tape masking-tape-dark" style={{ top: '-8px', left: '-12px', transform: 'rotate(-36deg)' }} />
+                  <span className="masking-tape masking-tape-dark" style={{ top: '-8px', right: '-12px', transform: 'rotate(36deg)' }} />
+                  <div className="taped-preview-frame">{renderProjectMockup(p3)}</div>
                 </div>
               </div>
             </div>

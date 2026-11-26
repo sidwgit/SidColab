@@ -12,7 +12,9 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ name, email, socials, onOpenContact }) => {
   const shortLabels: Record<string, string> = {
     youtube: 'YOUTUBE',
-    instagram: 'INSTAGRAM (@SIDISFIRE)',
+    instagram: 'INSTAGRAM',
+    twitter: 'X (@SIDBYTESS)',
+    twitch: 'TWITCH',
     email: 'EMAIL',
   };
 

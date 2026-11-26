@@ -8,7 +8,7 @@ import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { PlaygroundSection } from './components/PlaygroundSection';
 import { ContactSection } from './components/ContactSection';
-import { FreelancePage } from './components/FreelancePage';
+import { FreelancePage, CategoryFilter } from './components/FreelancePage';
 import { CaseStudyModal } from './components/CaseStudyModal';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
@@ -20,8 +20,18 @@ function getInitialRoute(): PageRoute {
   return params.get('page') === 'freelance' ? 'freelance' : 'home';
 }
 
+function getInitialFilter(): CategoryFilter {
+  const params = new URLSearchParams(window.location.search);
+  const tag = params.get('tag')?.toLowerCase();
+  if (tag === 'thumbnails') return 'Thumbnails';
+  if (tag === 'posters') return 'Posters';
+  if (tag === 'cards') return 'Visiting Cards';
+  return 'All';
+}
+
 export function App() {
   const [route, setRoute] = useState<PageRoute>(getInitialRoute);
+  const [freelanceFilter, setFreelanceFilter] = useState<CategoryFilter>(getInitialFilter);
   const [activeSection, setActiveSection] = useState('home');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
@@ -29,16 +39,21 @@ export function App() {
   const [selectedService, setSelectedService] = useState<string | undefined>(undefined);
   const pendingSectionRef = useRef<string | null>(null);
 
+  const thumbnailCount = freelanceGalleryItems.filter(
+    (item) => item.category === 'Thumbnails'
+  ).length;
+
   useEffect(() => {
     document.title =
       route === 'freelance'
-        ? 'Freelance Posters — Sid (Graphic Designer & Editor)'
+        ? 'Freelance Posters & Thumbnails — SidColab'
         : portfolioData.meta.siteTitle;
   }, [route]);
 
   useEffect(() => {
     const handlePopState = () => {
       setRoute(getInitialRoute());
+      setFreelanceFilter(getInitialFilter());
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -86,12 +101,22 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [route]);
 
-  const openFreelancePage = () => {
+  const openFreelancePage = (initialFilter: CategoryFilter = 'All') => {
     setSelectedProject(null);
+    setFreelanceFilter(initialFilter);
     setRoute('freelance');
     setActiveSection('case-study');
     const url = new URL(window.location.href);
     url.searchParams.set('page', 'freelance');
+    if (initialFilter === 'Thumbnails') {
+      url.searchParams.set('tag', 'thumbnails');
+    } else if (initialFilter === 'Posters') {
+      url.searchParams.set('tag', 'posters');
+    } else if (initialFilter === 'Visiting Cards') {
+      url.searchParams.set('tag', 'cards');
+    } else {
+      url.searchParams.delete('tag');
+    }
     window.history.pushState({}, '', url.toString());
     window.scrollTo(0, 0);
   };
@@ -103,6 +128,7 @@ export function App() {
       setRoute('home');
       const url = new URL(window.location.href);
       url.searchParams.delete('page');
+      url.searchParams.delete('tag');
       window.history.pushState({}, '', url.toString());
       return;
     }
@@ -144,6 +170,7 @@ export function App() {
         {route === 'freelance' ? (
           <FreelancePage
             items={freelanceGalleryItems}
+            initialFilter={freelanceFilter}
             onBack={() => navigateHomeSection('case-study')}
             onRequestDesign={handleCommissionPoster}
           />
@@ -164,6 +191,7 @@ export function App() {
             <ProjectsSection
               projects={portfolioData.projects}
               freelanceCount={freelanceGalleryItems.length}
+              thumbnailCount={thumbnailCount}
               onSelectProject={(project) => setSelectedProject(project)}
               onOpenFreelanceFolder={openFreelancePage}
             />
@@ -173,6 +201,7 @@ export function App() {
             <ContactSection
               email={portfolioData.meta.email}
               availabilityLabel={portfolioData.meta.availabilityLabel}
+              socials={portfolioData.contactSocials}
               selectedService={selectedService}
             />
           </>
@@ -192,7 +221,7 @@ export function App() {
         onClose={() => setSelectedProject(null)}
         onSelectProject={(p) => {
           if (p.id === 'freelance-posters') {
-            openFreelancePage();
+            openFreelancePage('All');
           } else {
             setSelectedProject(p);
           }
@@ -204,6 +233,7 @@ export function App() {
         isOpen={contactOpen}
         email={portfolioData.meta.email}
         availabilityLabel={portfolioData.meta.availabilityLabel}
+        socials={portfolioData.contactSocials}
         initialService={selectedService}
         onClose={() => setContactOpen(false)}
       />

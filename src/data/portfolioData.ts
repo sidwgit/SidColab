@@ -1,7 +1,15 @@
 export interface SocialLink {
-  id: 'youtube' | 'instagram' | 'email';
+  id: 'youtube' | 'instagram' | 'twitter' | 'twitch' | 'email';
   label: string;
   url: string;
+  bgColor: string;
+}
+
+export interface ContactSocial {
+  id: 'instagram' | 'discord' | 'email' | 'twitter' | 'twitch';
+  label: string;
+  handle: string;
+  url?: string;
   bgColor: string;
 }
 
@@ -52,7 +60,7 @@ export interface ProjectItem {
   cardBg: string;
   cardTextColor: string;
   mutedTextColor: string;
-  mockupType: 'youtube' | 'posters';
+  mockupType: 'youtube' | 'posters' | 'twitch';
   role: string;
   timeline: string;
   client: string;
@@ -94,6 +102,7 @@ export interface PortfolioData {
   services: ServiceCard[];
   projects: ProjectItem[];
   socials: SocialLink[];
+  contactSocials: ContactSocial[];
 }
 
 /**
@@ -101,7 +110,7 @@ export interface PortfolioData {
  */
 export const portfolioData: PortfolioData = {
   meta: {
-    siteTitle: 'Sid — Graphic Designer & Editor',
+    siteTitle: 'SidColab — Sid | Graphic Designer & Editor',
     email: 'sidwcolab@gmail.com',
     availabilityLabel: 'Open for freelance design, editing & creative direction',
     instagramHandle: '@sidisfire',
@@ -248,7 +257,7 @@ export const portfolioData: PortfolioData = {
       date: 'FREELANCE FOLDER',
       title: 'Graphic Design & Posters',
       tagline:
-        'A curated freelance folder of posters, key visuals, cover art, and bold print-ready layouts.',
+        'A curated freelance folder of posters, YouTube thumbnails, key visuals, and visiting cards.',
       tabColor: '#f5c52b',
       tabTextColor: '#18181b',
       cardBg: '#f5c52b',
@@ -305,6 +314,39 @@ export const portfolioData: PortfolioData = {
         },
       ],
     },
+    {
+      id: 'twitch-streams',
+      tabLabel: 'PROJECT 03 · TWITCH',
+      date: 'TWITCH.TV/SIDISFIRE',
+      title: 'Twitch & Live Streams',
+      tagline:
+        'Live design sessions, edit breakdowns, gaming, custom stream graphics, and chill hangouts with chat.',
+      tabColor: '#772CE8',
+      tabTextColor: '#ffffff',
+      cardBg: '#772CE8',
+      cardTextColor: '#ffffff',
+      mutedTextColor: '#ede9fe',
+      mockupType: 'twitch',
+      role: 'Streamer, Designer & Creator',
+      timeline: 'Live Channel',
+      client: 'twitch.tv/sidisfire',
+      deliverables: [
+        'Gaming Streams',
+        'Live Design Sessions',
+        'Overlays & Alerts',
+        'Edit Breakdowns',
+        'Community Hangouts',
+      ],
+      overview:
+        'My Twitch channel (sidisfire) is where I mix gaming streams with live poster design sessions, After Effects and Premiere breakdowns, and hanging out with chat.',
+      highlights: [
+        'Custom stream overlays, alert animations, and stinger transitions designed from scratch.',
+        'Live step-by-step walk-throughs of poster layouts, typography, and video pacing.',
+        'Interactive creative Q&As, portfolio feedback, and chill gaming streams.',
+      ],
+      liveUrl: 'https://www.twitch.tv/sidisfire',
+      liveCtaLabel: 'WATCH ON TWITCH',
+    },
   ],
   socials: [
     {
@@ -320,10 +362,58 @@ export const portfolioData: PortfolioData = {
       bgColor: '#ec4899',
     },
     {
+      id: 'twitter',
+      label: 'Twitter (@sidbytess)',
+      url: 'https://x.com/sidbytess',
+      bgColor: '#38bdf8',
+    },
+    {
+      id: 'twitch',
+      label: 'Twitch (sidisfire)',
+      url: 'https://www.twitch.tv/sidisfire',
+      bgColor: '#a78bfa',
+    },
+    {
       id: 'email',
       label: 'Email (sidwcolab@gmail.com)',
       url: 'mailto:sidwcolab@gmail.com',
       bgColor: '#10b981',
+    },
+  ],
+  contactSocials: [
+    {
+      id: 'instagram',
+      label: 'IG',
+      handle: '@sidisfire',
+      url: 'https://www.instagram.com/sidisfire/',
+      bgColor: '#fbcfe8',
+    },
+    {
+      id: 'discord',
+      label: 'DISCORD',
+      handle: '@realsidgod',
+      bgColor: '#e0e7ff',
+    },
+    {
+      id: 'email',
+      label: 'EMAIL',
+      handle: 'sidwcolab@gmail.com',
+      url: 'mailto:sidwcolab@gmail.com',
+      bgColor: '#fef08a',
+    },
+    {
+      id: 'twitter',
+      label: 'X / TWITTER',
+      handle: '@sidbytess',
+      url: 'https://x.com/sidbytess',
+      bgColor: '#e0f2fe',
+    },
+    {
+      id: 'twitch',
+      label: 'TWITCH',
+      handle: 'sidisfire',
+      url: 'https://www.twitch.tv/sidisfire',
+      bgColor: '#ede9fe',
     },
   ],
 };

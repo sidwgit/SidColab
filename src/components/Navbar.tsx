@@ -45,6 +45,18 @@ export const Navbar: React.FC<NavbarProps> = ({
         return <Youtube size={13} strokeWidth={2.3} />;
       case 'instagram':
         return <Instagram size={12} strokeWidth={2.4} />;
+      case 'twitter':
+        return (
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        );
+      case 'twitch':
+        return (
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M4.265 3 3 6.236v13.223h4.502V21l2.531.001 2.39-1.542h3.658L21 14.539V3H4.265Zm15.05 10.691-2.813 2.814h-4.501l-2.391 1.542v-1.542H5.813V4.688h13.502v9.003Zm-3.657-5.908v4.782h-1.688V7.783h1.688Zm-4.5 0v4.782H9.47V7.783h1.688Z" />
+          </svg>
+        );
       case 'email':
         return <Mail size={12} strokeWidth={2.4} />;
       default:

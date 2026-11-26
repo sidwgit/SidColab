@@ -2,10 +2,13 @@ import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 function freelanceFolderSyncPlugin(): Plugin {
-  const freelanceDir = path.resolve(__dirname, 'Freelance');
-  const syncScript = path.resolve(__dirname, 'scripts/sync_freelance.py');
+  const freelanceDir = path.resolve(rootDir, 'Freelance');
+  const syncScript = path.resolve(rootDir, 'scripts/sync_freelance.py');
 
   const runSync = () => {
     try {
