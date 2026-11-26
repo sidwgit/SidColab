@@ -12,7 +12,6 @@ import { FreelancePage, CategoryFilter } from './components/FreelancePage';
 import { CaseStudyModal } from './components/CaseStudyModal';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
-import { Analytics } from "@vercel/analytics/next"
 
 type PageRoute = 'home' | 'freelance';
 
