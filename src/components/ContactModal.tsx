@@ -220,7 +220,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({
             </div>
             <p style={{ margin: '0 0 14px', fontSize: '13.5px', color: '#14532d', lineHeight: 1.5 }}>
               Thanks{name ? `, ${name}` : ''}! Your message was sent directly to <strong>{email}</strong>.
-              (On the very first submission, FormSubmit sends a one-time activation link to your Gmail.)
             </p>
             <button
               type="button"

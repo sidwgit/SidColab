@@ -239,7 +239,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </div>
                 <p style={{ margin: '0 auto 16px', maxWidth: '460px', fontSize: '14px', color: '#14532d', lineHeight: 1.55 }}>
                   Thanks{name ? `, ${name}` : ''}! Your message was submitted directly to <strong>{email}</strong>.
-                  (If this is the very first submission on this site, Sid will receive a quick one-time FormSubmit activation email in Gmail.)
                 </p>
                 <button
                   type="button"

@@ -10,6 +10,7 @@
     "sync": "python scripts/sync_freelance.py"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "@vercel/functions": "^3.11.4",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
